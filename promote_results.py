@@ -83,6 +83,20 @@ def promote_scientific_results():
     # Initialize Hugging Face API (which now uses the patched httpx class)
     api = HfApi()
 
+    # Create dataset repo explicitly
+    try:
+        from huggingface_hub import create_repo
+        create_repo(
+            repo_id=REPO_ID,
+            repo_type="dataset",
+            token=hf_token,
+            exist_ok=True,
+            private=False
+        )
+        print(f"  [+] Created/Verified Hugging Face Dataset repository: {REPO_ID}")
+    except Exception as e:
+        print(f"  [!] Repository verification error: {e}")
+
     # Upload files programmatically
     start_time = time.time()
     successful_uploads = []
@@ -98,6 +112,7 @@ def promote_scientific_results():
                 path_or_fileobj=local_path,
                 path_in_repo=repo_path,
                 repo_id=REPO_ID,
+                repo_type="dataset",
                 token=hf_token
             )
             print(f"      -> {GREEN}Successfully uploaded as {repo_path} ({os.path.getsize(local_path)} bytes){NC}")
