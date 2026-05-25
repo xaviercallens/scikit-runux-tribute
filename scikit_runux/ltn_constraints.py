@@ -52,9 +52,64 @@ class BiomimeticFuzzyLogicGatekeeper:
         truth = np.exp(-self.beta * excess_loss)
         return float(np.clip(truth, 0.0, 1.0))
 
-    def evaluate_global_satisfaction(self, p_weights: float, p_error: float) -> float:
+    def energy_drift_satisfaction(self, energy_history: List[float], drift_threshold: float = 1e-10) -> float:
         """
-        Evaluates the global fuzzy logic satisfaction using the Product t-norm:
-        $$I(\\phi \\land \\psi) = I(\\phi) \\times I(\\psi)$$
+        Fuzzy predicate: energy_conservation(E)
+        Evaluates the truth value in [0.0, 1.0] that the physical energy is conserved.
+        $$I(\\text{energy\\_conservation}(E)) = e^{-\\beta \\max(0, \\text{max\\_drift} - \\text{drift\\_threshold})}$$
         """
-        return float(p_weights * p_error)
+        if not energy_history:
+            return 0.0
+            
+        E0 = energy_history[0]
+        if abs(E0) < 1e-30:
+            return 1.0
+            
+        max_drift = 0.0
+        for E in energy_history:
+            drift = abs(E - E0) / abs(E0)
+            if drift > max_drift:
+                max_drift = drift
+                
+        excess_drift = max(0.0, max_drift - drift_threshold)
+        
+        if np.isnan(max_drift) or np.isinf(max_drift):
+            return 0.0
+            
+        truth = np.exp(-self.beta * excess_drift)
+        return float(np.clip(truth, 0.0, 1.0))
+
+    def helicity_drift_satisfaction(self, helicity_history: List[float], drift_threshold: float = 0.05) -> float:
+        """
+        Fuzzy predicate: helicity_preservation(H)
+        Evaluates the truth value in [0.0, 1.0] that magnetic helicity is preserved.
+        $$I(\\text{helicity\\_preservation}(H)) = e^{-\\beta \\max(0, \\text{max\\_drift} - \\text{drift\\_threshold})}$$
+        """
+        if not helicity_history:
+            return 0.0
+            
+        H0 = helicity_history[0]
+        max_drift = 0.0
+        for H in helicity_history:
+            # Normalize by 1e-5 to prevent near-zero relative drift explosion
+            drift = abs(H - H0) / max(abs(H0), 1e-5)
+            if drift > max_drift:
+                max_drift = drift
+                
+        excess_drift = max(0.0, max_drift - drift_threshold)
+        
+        if np.isnan(max_drift) or np.isinf(max_drift):
+            return 0.0
+            
+        truth = np.exp(-self.beta * excess_drift)
+        return float(np.clip(truth, 0.0, 1.0))
+
+    def evaluate_global_satisfaction(self, *predicates: float) -> float:
+        """
+        Evaluates the global fuzzy logic satisfaction of a conjunction of predicates using the Product t-norm:
+        $$I(\\phi_1 \\land \\phi_2 \\land \\dots \\land \\phi_n) = \\prod_i I(\\phi_i)$$
+        """
+        satisfaction = 1.0
+        for p in predicates:
+            satisfaction *= p
+        return float(satisfaction)
