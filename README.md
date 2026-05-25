@@ -1,9 +1,9 @@
 # scikit-runux: Pour l'Honneur de l'Esprit Humain 🇫🇷
 
 > [!NOTE]
-> **A Lifelong Scientific Testimonial & Open Source Tribute to Professor Olivier Grisel**
+> **A Lifelong Scientific Testimonial & Open Source Tribute to Professor Olivier Grisel & Professor Alexandre Gramfort**
 >
-> Inspired by the lectures of **Olivier Grisel** at *l'École Polytechnique* (X), the mathematical legacy of **Jean Dieudonné**, and the historic French engineering style (*l'art de l'ingénieur français*).
+> Inspired by the lectures of **Olivier Grisel** and **Alexandre Gramfort** at *l'École Polytechnique* (X), the mathematical legacy of **Jean Dieudonné**, and the historic French engineering style (*l'art de l'ingénieur français*).
 
 ---
 
@@ -29,11 +29,16 @@ This tribute is born from that alignment: a lifelong scientific dedication to de
 
 ---
 
-## 2. Dedication to Olivier Grisel
+## 2. Dedication to Olivier Grisel & Alexandre Gramfort
 
-We dedicate this framework to **Professor Olivier Grisel**, an alumnus of *l'École Polytechnique* and a key *Scikit-Learn* core contributor at *INRIA*. 
+We dedicate this framework to two legendary pillars of the *Scikit-Learn* ecosystem and French scientific computing: **Professor Olivier Grisel** and **Professor Alexandre Gramfort**, both alumni of *l'École Polytechnique* and core INRIA scikit-learn maintainers.
 
-Through his exceptional lectures, profound design insights, and tireless work maintaining the open-source machine learning ecosystem, Olivier has inspired generations of engineers. His career embodies the absolute best of the French engineering tradition—combining high-level mathematical theory with high-impact, democratized open-source code.
+This dedication holds a deeply personal and lifelong meaning:
+*   **Professor Alexandre Gramfort** studied alongside the author's wife during high school, and later served as the author's professor during postgraduate studies at the *l'École Polytechnique* DSSP (Data Science Starter Program) program.
+*   **Professor Olivier Grisel**'s exceptional, insightful lectures inspired the core architecture of `scikit-runux`.
+
+Their combined careers represent the pinnacle of the French engineering tradition—marrying deep mathematical rigor with global open-source impact. We thank them for showing us that scientific code is a true medium for mathematical passion.
+
 
 ---
 
