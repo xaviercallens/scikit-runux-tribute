@@ -1,0 +1,8 @@
+# Build and temporary files
+/build/
+/dist/
+/*.egg-info/
+__pycache__/
+*.pyc
+.DS_Store
+.env
