@@ -205,6 +205,24 @@ pipeline = Pipeline([
 
 ---
 
-## License
+## 8. Open Science, Licensing, and Zenodo Deposition
 
-This tribute repository is open-sourced under the [MIT License](LICENSE) to support open scientific inquiry. The full, optimized high-performance training kernels are proprietary under **Socrate AI Lab** (Patent Pending: `US-PAT-PEND-2026-0525`).
+In alignment with our dedication to the motto *"Pour l'honneur de la science"*, **Socrate AI Lab** commits to the absolute transparency, reproducibility, and open accessibility of scientific knowledge.
+
+### 8.1. Zenodo Deposition Schema
+All physical equations, 1D/2D/3D numerical solvers, stubs, and TPU-generated simulation trajectory datasets are deposited openly on the Zenodo scientific archive:
+*   **Zenodo Permanent Deposit ID**: `20380024`
+*   **Deposit License**: **Creative Commons Attribution 4.0 International (CC-BY-4.0)**
+*   **Dataset URL**: [https://huggingface.co/datasets/callensxavier/runux-wars-ci-dfa-tpu-benchmarks](https://huggingface.co/datasets/callensxavier/runux-wars-ci-dfa-tpu-benchmarks)
+
+This deposition ensures that researchers globally can reproduce, evaluate, and build upon our multidimensional symplectic physics simulations.
+
+### 8.2. Dual-Licensing Framework & Commercial Licensing
+To safeguard our proprietary high-performance computing (HPC) acceleration kernels and WARS-CI-DFA matrix-multiplication runtimes while supporting academic research, **Socrate AI Lab** operates under a flexible **dual-licensing framework**:
+1.  **Academic & Non-Profit Use**: The public interfaces, solvers, Logic Tensor Network gatekeepers, and stubs are licensed under the **MIT License**. This allows unrestricted non-commercial research, education, and validation.
+2.  **Commercial & Industrial Deployment**: Deployment of the optimized, bare-metal high-throughput systolic kernels in commercial fusion reactors, enterprise hardware VM clusters, or proprietary grid-controllers requires an active commercial license.
+    *   *Commercial licenser*: **Socrate AI Lab (Non-Profit Association)**
+    *   *Patent Pending*: `US-PAT-PEND-2026-0525` ("Active Symplectic Neural Feedback Control for Toroidal MHD Quench Prevention")
+    *   *Licensing Inquiries*: [licensing@socrate-ai-lab.com](mailto:licensing@socrate-ai-lab.com)
+
+All proceeds from commercial licensing are directly reinvested into the non-profit research operations of Socrate AI Lab to support green, frugal computing and zero-carbon energy research globally.
