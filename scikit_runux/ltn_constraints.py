@@ -104,10 +104,61 @@ class BiomimeticFuzzyLogicGatekeeper:
         truth = np.exp(-self.beta * excess_drift)
         return float(np.clip(truth, 0.0, 1.0))
 
+    def multidimensional_energy_conservation(self, energy_history: List[float], drift_threshold: float = 1e-10) -> float:
+        """
+        Fuzzy predicate: multidimensional_energy_conservation(E)
+        Evaluates the truth value in [0.0, 1.0] that multi-dimensional physical energy is conserved.
+        $$I(\text{multidimensional\_energy\_conservation}(E)) = e^{-\beta \max(0, \text{max\_drift} - \text{drift\_threshold})}$$
+        """
+        if not energy_history:
+            return 0.0
+            
+        E0 = energy_history[0]
+        if abs(E0) < 1e-30:
+            return 1.0
+            
+        max_drift = 0.0
+        for E in energy_history:
+            drift = abs(E - E0) / abs(E0)
+            if drift > max_drift:
+                max_drift = drift
+                
+        excess_drift = max(0.0, max_drift - drift_threshold)
+        
+        if np.isnan(max_drift) or np.isinf(max_drift):
+            return 0.0
+            
+        truth = np.exp(-self.beta * excess_drift)
+        return float(np.clip(truth, 0.0, 1.0))
+
+    def toroidal_flux_conservation(self, flux_history: List[float], drift_threshold: float = 0.05) -> float:
+        """
+        Fuzzy predicate: toroidal_flux_conservation(psi)
+        Evaluates the truth value in [0.0, 1.0] that total toroidal magnetic flux is conserved.
+        $$I(\text{toroidal\_flux\_conservation}(\psi)) = e^{-\beta \max(0, \text{max\_drift} - \text{drift\_threshold})}$$
+        """
+        if not flux_history:
+            return 0.0
+            
+        psi0 = flux_history[0]
+        max_drift = 0.0
+        for psi in flux_history:
+            drift = abs(psi - psi0) / max(abs(psi0), 1e-5)
+            if drift > max_drift:
+                max_drift = drift
+                
+        excess_drift = max(0.0, max_drift - drift_threshold)
+        
+        if np.isnan(max_drift) or np.isinf(max_drift):
+            return 0.0
+            
+        truth = np.exp(-self.beta * excess_drift)
+        return float(np.clip(truth, 0.0, 1.0))
+
     def evaluate_global_satisfaction(self, *predicates: float) -> float:
         """
         Evaluates the global fuzzy logic satisfaction of a conjunction of predicates using the Product t-norm:
-        $$I(\\phi_1 \\land \\phi_2 \\land \\dots \\land \\phi_n) = \\prod_i I(\\phi_i)$$
+        $$I(\phi_1 \land \phi_2 \land \dots \land \phi_n) = \prod_i I(\phi_i)$$
         """
         satisfaction = 1.0
         for p in predicates:
