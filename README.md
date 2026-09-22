@@ -5,6 +5,9 @@
 >
 > Inspired by the lectures of **Olivier Grisel** and **Alexandre Gramfort** at *l'École Polytechnique* (X), the mathematical legacy of **Jean Dieudonné**, and the historic French engineering style (*l'art de l'ingénieur français*).
 
+> [!IMPORTANT]
+> **What is actually in this repository.** This is a public interface stub: `RunuxClassifier.fit/predict/predict_proba` all raise `NotImplementedError` (`scikit_runux/scikit_runux_ext_stub.py`) — there is no functioning estimator here. There are no `.lean` files in this repository, so the "Lean 4 Proof Status: VERIFIED (Closed)" row in §7.1 and the "Formal Integrity" claim in §1 do not describe anything shipped in this repo; whatever they refer to lives, if anywhere, in the proprietary codebase. The benchmark tables in §7 are not reproducible from this repository's code.
+
 ---
 
 ## 1. The Philosophical & Mathematical Genesis
@@ -47,7 +50,8 @@ To demonstrate the power of `scikit-runux` constraints checking in highly frustr
 
 ### 3.1. Mathematical Formulation
 The Hamiltonian of the three-dimensional disordered classical Edwards-Anderson spin glass is defined on an $L 	imes L 	imes L$ cubic lattice:
-$$H = -\sum_{\langle i, j angle} J_{ij} S_i S_j - \sum_i h_i S_i$$
+$$H = -\sum_{\langle i, j 
+angle} J_{ij} S_i S_j - \sum_i h_i S_i$$
 where $S_i \in \{-1, +1\}$ are classical Ising spins, $J_{ij} \sim \mathcal{N}(0, J^2)$ represent frustrated nearest-neighbor exchange couplings, and $h_i \sim \mathcal{N}(0, h^2)$ are random local fields.
 
 ### 3.2. Local Gauge Invariance & LTN Verification
@@ -108,7 +112,8 @@ python3 examples/solve_2d_tearing_mode.py
 Leveraging Xavier Callens' research on `rusty-SUNDIALS`, the repository features a high-fidelity 3D ITER plasma disruption solver: `examples/solve_3d_toroidal_disruption.py`.
 
 ### 5.1. Cylindrical-Toroidal Mesh Layout
-We model a cylindrical-toroidal slice geometry $(ho, 	heta, arphi)$ for a grid of size $100 	imes 200 	imes 16$ representing radial, poloidal, and toroidal slices.
+We model a cylindrical-toroidal slice geometry $(
+ho, 	heta, arphi)$ for a grid of size $100 	imes 200 	imes 16$ representing radial, poloidal, and toroidal slices.
 *   **Electron Temperature ($T_e$)**: undergoes extreme thermal quench from center $T_{e0} = 25	ext{ eV}$ under helical magnetic perturbations.
 *   **Toroidal Current Density ($J_{\phi}$)**: undergoes magnetic reconnection and flattening at resonant surfaces $r_s = 0.45$.
 *   **Vacuum Vessel ($J_{	ext{induced}}$)**: models induced poloidal and skin eddy currents on a $10 	imes 200 	imes 16$ vessel mesh.
@@ -137,7 +142,11 @@ To move from passive simulation to active stabilization, the repository features
 
 ### 6.1. Active Magnetic Control Math
 We stabilize the highly unstable $m=2, n=1$ tearing mode by introducing active feedback currents $I_{	ext{stabilize}}(t)$ delivered via external magnetic coils:
-$$J_z(ho, 	heta, arphi, t) = J_{	ext{base}}(ho, t) + J_{	ext{island}}(ho, 	heta, arphi, t) - lpha_{	ext{coil}} I_{	ext{stabilize}}(t) \cdot \delta(ho - r_{	ext{vessel}}) \cos(2	heta - arphi)$$
+$$J_z(
+ho, 	heta, arphi, t) = J_{	ext{base}}(
+ho, t) + J_{	ext{island}}(
+ho, 	heta, arphi, t) - lpha_{	ext{coil}} I_{	ext{stabilize}}(t) \cdot \delta(
+ho - r_{	ext{vessel}}) \cos(2	heta - arphi)$$
 
 ### 6.2. RunuX AI Neural Feedback Controller
 The optimal control current is mapped in real-time by a RunuX AI neural-symbolic feedback MLP, taking inputs from 16 core ECE channels and 8 boundary Mirnov magnetic pick-up probes:
